@@ -1,0 +1,23 @@
+{
+    "name": "studious/autologin",
+    "description": "",
+    "authors": [
+        {
+            "name": "Dwight Watson",
+            "email": "dwightwatson@me.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.x"
+    },
+    "autoload": {
+        "classmap": [
+            "src/controllers"
+        ],
+        "psr-0": {
+            "Studious\\Autologin": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
