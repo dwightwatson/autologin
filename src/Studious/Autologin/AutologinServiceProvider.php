@@ -27,9 +27,7 @@ class AutologinServiceProvider extends ServiceProvider {
 	{
 		$this->app['autologin.provider'] = $this->app->share(function($app)
 		{
-			$provider = $app['config']['studious/autologin::provider'];
-
-			$provider = 'Studious\Autologin\Providers\EloquentAutologinProvider';
+			$provider = $app['config']['autologin::provider'];
 
 			return new $provider;
 		});
@@ -62,7 +60,7 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('autologin', 'autologin.provider');
 	}
 
 }
