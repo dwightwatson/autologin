@@ -1,4 +1,4 @@
-<?php namespace Studious\Autologin\Interfaces;
+<?php namespace Watson\Autologin\Interfaces;
 
 interface AutologinInterface {
 

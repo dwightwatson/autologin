@@ -1,5 +1,5 @@
 {
-    "name": "studious/autologin",
+    "name": "watson/autologin",
     "description": "Autologin package for Laravel 4",
     "keywords": ["laravel", "autologin"],
     "license": "MIT",
@@ -22,7 +22,7 @@
             "src/controllers"
         ],
         "psr-4": {
-            "Studious\\": "src/Studious"
+            "Watson\\": "src/Watson"
         }
     },
     "minimum-stability": "dev"

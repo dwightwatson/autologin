@@ -1,7 +1,7 @@
-<?php namespace Studious\Autologin;
+<?php namespace Watson\Autologin;
 
 use Illuminate\Support\ServiceProvider;
-use Studious\Autologin\Autologin;
+use Watson\Autologin\Autologin;
 
 class AutologinServiceProvider extends ServiceProvider {
 
@@ -48,7 +48,7 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('studious/autologin');
+		$this->package('watson/autologin');
 
 		include __DIR__.'/../../routes.php';
 	}

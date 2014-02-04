@@ -1,8 +1,8 @@
-<?php namespace Studious\Autologin;
+<?php namespace Watson\Autologin;
 
 use Auth, Redirect;
 use Illuminate\Routing\Controller;
-use Studious\Autologin\Interfaces\AutologinInterface;
+use Watson\Autologin\Interfaces\AutologinInterface;
 
 
 class AutologinController extends Controller {

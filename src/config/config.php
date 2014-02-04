@@ -51,7 +51,7 @@ return array(
 	|
 	*/
 
-	'provider' => 'Studious\Autologin\Providers\EloquentAutologinProvider',
+	'provider' => 'Watson\Autologin\Providers\EloquentAutologinProvider',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -68,6 +68,6 @@ return array(
 
 	'route_name' => 'autologin',
 
-	'route_controller' => 'Studious\Autologin\AutologinController@autologin'
+	'route_controller' => 'Watson\Autologin\AutologinController@autologin'
 
 );

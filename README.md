@@ -8,20 +8,20 @@ Autologin is a package built specifically for Laravel 4 that will allow you to g
 Simply pop this in your `composer.json` file and run `composer update` (however your Composer is installed).
 
 ```
-"studious/autologin": "dev-master"
+"watson/autologin": "dev-master"
 ```
 
 Now, add the Autologin service provider to your `app/config/app.php` file.
 
-`'Studious\Autologin\AutologinServiceProvider'`
+`'Watson\Autologin\AutologinServiceProvider'`
 
 If you want to adjust the default settings from the sensible defaults, publish the configuration file.
 
-`php artisan config:publish studious/autologin`
+`php artisan config:publish watson/autologin`
 
 And of course, if you'd like to use a Facade instead of injecting the class itself, add this to the aliases array.
 
-`'Autologin' => 'Studious\Autologin\Facades\Autologin'`
+`'Autologin' => 'Watson\Autologin\Facades\Autologin'`
 
 ## Generating a autologin link
 
@@ -51,4 +51,4 @@ And of course, if you'd like to use a Facade instead of injecting the class itse
 
 ## Validating a token
 
-The default configuration for Autologin is to use Laravel's built in `Auth` library for autentication. If you take a look at `Studious\Autologin\AutologinController` you'll see an example of how a token is validated, the user is logged in and then redirected. If you wish to use a different authentication library, simply copy the controller into your own application, swap out the authentication line for your library and then set the controller in the Autologin configuration file.
+The default configuration for Autologin is to use Laravel's built in `Auth` library for autentication. If you take a look at `Watson\Autologin\AutologinController` you'll see an example of how a token is validated, the user is logged in and then redirected. If you wish to use a different authentication library, simply copy the controller into your own application, swap out the authentication line for your library and then set the controller in the Autologin configuration file.

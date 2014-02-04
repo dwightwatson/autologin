@@ -1,7 +1,7 @@
-<?php namespace Studious\Autologin\Providers;
+<?php namespace Watson\Autologin\Providers;
 
 use Illuminate\Database\Eloquent\Model;
-use Studious\Autologin\Interfaces\AutologinInterface;
+use Watson\Autologin\Interfaces\AutologinInterface;
 
 class EloquentAutologinProvider extends Model implements AutologinInterface {
 	
@@ -13,7 +13,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      * Creates a autologin token.
      *
      * @param  array  $attributes
-     * @return \Studious\Autologin\Interfaces\AutologinInterface
+     * @return \Watson\Autologin\Interfaces\AutologinInterface
      */
     public static function create(array $attributes)
     {
@@ -24,7 +24,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      * Find a user by the given token.
      *
      * @param  string  $token
-     * @return \Studious\Autologin\Interfaces\AutologinInterface
+     * @return \Watson\Autologin\Interfaces\AutologinInterface
      */
     public static function findByToken($token)
     {

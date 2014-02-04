@@ -1,4 +1,4 @@
-<?php namespace Studious\Autologin\Facades;
+<?php namespace Watson\Autologin\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

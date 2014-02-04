@@ -1,4 +1,4 @@
-<?php namespace Studious\Autologin;
+<?php namespace Watson\Autologin;
 
 use Carbon\Carbon;
 use DB;
@@ -6,7 +6,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Str;
-use Studious\Autologin\Interfaces\AutologinInterface;
+use Watson\Autologin\Interfaces\AutologinInterface;
 
 class Autologin
 {
@@ -27,7 +27,7 @@ class Autologin
 	/**
 	 * AutologinInterface provider instance.
 	 *
-	 * @var \Studious\Autologin\AutologinInterface
+	 * @var \Watson\Autologin\AutologinInterface
 	 */
 	protected $provider;
 
