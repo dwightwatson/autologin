@@ -104,12 +104,6 @@ class Autologin
 	{
 		$autologin = $this->provider->findByToken($token);
 
-		// If we are supposed to remove expired tokens, let's do it now.
-		if ($this->config->get('autologin::remove_expired'))
-		{
-			$this->deleteExpiredTokens();
-		}
-
 		return $autologin ? $autologin : null;
 	}
 
@@ -123,6 +117,12 @@ class Autologin
 	 */
 	protected function getAutologinLink(UserInterface $user, $path = null)
 	{
+		// If we are supposed to remove expired tokens, let's do it now.
+		if ($this->config->get('autologin::remove_expired'))
+		{
+			$this->deleteExpiredTokens();
+		}
+		
 		// Get the user ID to be associated with a token.
 		$userId = $user->getAuthIdentifier();
 

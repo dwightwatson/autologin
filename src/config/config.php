@@ -32,12 +32,12 @@ return array(
 	| Destroy expired/used tokens
 	|--------------------------------------------------------------------------
 	|
-	| If this value is set to true, when a token is validated and used, it
-	| and all other tokens that have expired will be removed from storage.
+	| If this value is set to true when a token is generated all expired tokens
+	| will be removed from storage.
 	|
 	*/
 
-	'remove_expired' => false,
+	'remove_expired' => true,
 
 	/*
 	|--------------------------------------------------------------------------
