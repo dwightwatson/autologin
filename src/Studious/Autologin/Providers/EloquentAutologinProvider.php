@@ -52,7 +52,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      */
     public static function deleteExpiredTokens($expiry)
     {
-        $this->where('created_at', '<=', $expiry)
+        static::where('created_at', '<=', $expiry)
             ->delete();
     }
 
