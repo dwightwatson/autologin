@@ -1,8 +1,8 @@
-<?php namespace Studious\Autologin;
+<?php namespace Studious\Autologin\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class AutologinFacade extends Facade
+class Autologin extends Facade
 {
 	protected static function getFacadeAccessor() { return 'autologin'; }
 }

@@ -18,3 +18,37 @@ Now, add the Autologin service provider to your `app/config/app.php` file.
 If you want to adjust the default settings from the sensible defaults, publish the configuration file.
 
 `php artisan config:publish studious/autologin`
+
+And of course, if you'd like to use a Facade instead of injecting the class itself, add this to the aliases array.
+
+`'Autologin' => 'Studious\Autologin\Facades\Autologin'`
+
+## Generating a autologin link
+
+### Autologin link for a user
+
+	// User class implements UserInterface
+	$user = User::find(1);
+
+	// http://example.com/autologin/Mx7B1fsUin
+    $link = Autologin::user($user);
+
+### Autologin link for a user with a path
+
+    // User class implements UserInterface
+    $user = User::find(1);
+
+    // http://example.com/autologin/RvcNoAcH0X
+	$link = Autologin::to($user, '/profile');
+
+### Autologin link for a user with a route
+
+    // User class implements UserInterface
+    $user = User::find(1);
+
+    // http://example.com/autologin/3eQOsRnvPE
+    $link = Autologin::route($user, 'posts.index');
+
+## Validating a token
+
+The default configuration for Autologin is to use Laravel's built in `Auth` library for autentication. If you take a look at `Studious\Autologin\AutologinController` you'll see an example of how a token is validated, the user is logged in and then redirected. If you wish to use a different authentication library, simply copy the controller into your own application, swap out the authentication line for your library and then set the controller in the Autologin configuration file.

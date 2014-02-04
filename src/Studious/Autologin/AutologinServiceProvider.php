@@ -19,13 +19,27 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bind('autologin', function()
+		$this->registerAutologinProvider();
+		$this->registerAutologin();
+	}
+
+	protected function registerAutologinProvider()
+	{
+		$this->app['autologin.provider'] = $this->app->share(function($app)
 		{
-			$config = $this->app->make('config');
+			$provider = $app['config']['studious/autologin::provider'];
 
-			$url = $this->app->make('url');
+			$provider = 'Studious\Autologin\Providers\EloquentAutologinProvider';
 
-			return new Autologin($config, $url);
+			return new $provider;
+		});
+	}
+
+	protected function registerAutologin()
+	{
+		$this->app['autologin'] = $this->app->share(function($app)
+		{
+			return new Autologin($app['config'], $app['url'], $app['autologin.provider']);
 		});
 	}
 

@@ -6,6 +6,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Str;
+use Studious\Autologin\Interfaces\AutologinInterface;
 
 class Autologin
 {
@@ -24,15 +25,23 @@ class Autologin
 	protected $config;
 
 	/**
+	 * AutologinInterface provider instance.
+	 *
+	 * @var \Studious\Autologin\AutologinInterface
+	 */
+	protected $provider;
+
+	/**
 	 * Create a new Autologin instance.
 	 *
 	 * @param  \Illuminate\Routing\UrlGenerator
 	 * @return void
 	 */
-	public function __construct(Repository $repository, UrlGenerator $generator)
+	public function __construct(Repository $repository, UrlGenerator $generator, AutologinInterface $provider)
 	{
 		$this->config = $repository;
 		$this->generator = $generator;
+		$this->provider = $provider;
 	}
 
 	/**
@@ -93,17 +102,15 @@ class Autologin
 	 */
 	public function validate($token)
 	{
-		$autologinToken = DB::table('autologin_tokens')
-			->where('token', $token)
-			->first();
+		$autologin = $this->provider->findByToken($token);
 
 		// If we are supposed to remove expired tokens, let's do it now.
 		if ($this->config->get('autologin::remove_expired'))
 		{
-			$this->destroyExpiredTokens();
+			$this->deleteExpiredTokens();
 		}
 
-		return $autologinToken ? [$autologinToken->user_id, $autologinToken->path] : null;
+		return $autologin ? $autologin : null;
 	}
 
 	/**
@@ -123,17 +130,15 @@ class Autologin
 		$token = $this->getAutologinToken();
 
 		// Save the token to storage.
-		DB::table('autologin_tokens')->insert([
+		$this->provider->create([
 			'user_id'    => $userId,
 			'token'      => $token,
-			'path'       => $path,
-			'created_at' => Carbon::now(),
-			'updated_at' => Carbon::now()
+			'path'       => $path
 		]);
 
 		// Return a link using the route from the configuration file and
 		// the generated token.
-		$routeName = $this->config->get('autologin::name');
+		$routeName = $this->config->get('autologin::route_name');
 		
 		return $this->generator->route($routeName, $token);
 	}
@@ -156,12 +161,12 @@ class Autologin
 	 *
 	 * @return bool
 	 */
-	protected function destroyExpiredTokens()
+	protected function deleteExpiredTokens()
 	{
 		$lifetime = $this->config->get('autologin::lifetime');
 
-		return (bool) DB::table('autologin_tokens')
-			->where('created_at', '<=', Carbon::now()->subMinutes($lifetime))
-			->delete();
+		$expiry = Carbon::now()->subMinutes($lifetime);
+
+		return $this->provider->deleteExpiredTokens($expiry);
 	}
 }

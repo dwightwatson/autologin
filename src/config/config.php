@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 	
-	'length' => 20,
+	'length' => 10,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Destroy expired/used tokens.
+	| Destroy expired/used tokens
 	|--------------------------------------------------------------------------
 	|
 	| If this value is set to true, when a token is validated and used, it
@@ -38,6 +38,20 @@ return array(
 	*/
 
 	'remove_expired' => false,
+
+	/*
+	|--------------------------------------------------------------------------
+	| AutologinInterface provider
+	|--------------------------------------------------------------------------
+	|
+	| Here you may specify the class which implements AutologinInterface
+	| for the purpose of creating, reading and deleting autologin tokens. By
+	| default, we have a nice Eloquent one ready for you. Be sure to publish
+	| and run the package migration as well.
+	|
+	*/
+
+	'provider' => 'Studious\Autologin\Providers\EloquentAutologinProvider',
 
 	/*
 	|--------------------------------------------------------------------------
