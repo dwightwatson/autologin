@@ -19,17 +19,27 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->bindAutologinInterface();
+
 		$this->registerAutologinProvider();
 		$this->registerAutologin();
+	}
+
+	protected function bindAutologinInterface()
+	{
+		$this->app->bind('Watson\Autologin\Interfaces\AutologinInterface', function($app)
+		{
+			$provider = $app['config']['autologin::provider'];
+
+			return new $provider;
+		});
 	}
 
 	protected function registerAutologinProvider()
 	{
 		$this->app['autologin.provider'] = $this->app->share(function($app)
 		{
-			$provider = $app['config']['autologin::provider'];
-
-			return new $provider;
+			return $this->app->make('Watson\Autologin\Interfaces\AutologinInterface');
 		});
 	}
 
