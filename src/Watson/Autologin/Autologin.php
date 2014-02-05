@@ -153,7 +153,13 @@ class Autologin
 	{
 		$length = $this->config->get('autologin::length');
 
-		return Str::random($length);
+		do
+		{
+			$token = Str::random($length);
+		}
+		while ($this->provider->findByToken($token));
+
+		return $token;
 	}
 
 	/**
