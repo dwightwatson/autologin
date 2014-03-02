@@ -29,6 +29,19 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Token usage
+	|--------------------------------------------------------------------------
+	|
+	| Indicate whether each time the token is used while it is valid, the count
+	| on the column should be incremented. Be sure to disable this if you use
+	| the next option, removing used tokens.
+	|
+	*/
+
+	'count' => false,
+
+	/*
+	|--------------------------------------------------------------------------
 	| Destroy expired/used tokens
 	|--------------------------------------------------------------------------
 	|

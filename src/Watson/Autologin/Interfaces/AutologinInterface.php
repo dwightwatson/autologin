@@ -17,4 +17,6 @@ interface AutologinInterface {
     public function getToken();
 
     public function getPath();
+
+    public function incrementCount($number);
 }

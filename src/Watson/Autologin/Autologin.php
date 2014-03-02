@@ -94,8 +94,7 @@ class Autologin
 	}
 
 	/**
-	 * Validate a token from storage and return an array containing a user
-	 * ID and the intended path for the token.
+	 * Validate a token from storage and return the row.
 	 *
 	 * @param  string  $token
 	 * @return mixed
@@ -103,6 +102,11 @@ class Autologin
 	public function validate($token)
 	{
 		$autologin = $this->provider->findByToken($token);
+
+		if ($this->config->get('autologin::count'))
+		{
+			$autologin->incrementCount();
+		}
 
 		return $autologin ? $autologin : null;
 	}

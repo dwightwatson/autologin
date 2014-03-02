@@ -95,4 +95,15 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
     {
         return $this->path;
     }
+
+    /**
+     * Increment the count of the token usage.
+     *
+     * @param  int  $amount
+     * @return void
+     */
+    public function incrementCount($amount = 1)
+    {
+        $this->increment('count', $amount);
+    }
 }
