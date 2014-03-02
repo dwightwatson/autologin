@@ -64,7 +64,24 @@ return array(
 	|
 	*/
 
-	'provider' => 'Watson\Autologin\Providers\EloquentAutologinProvider',
+	'autologin_provider' => 'Watson\Autologin\Providers\EloquentAutologinProvider',
+
+	/*
+	|--------------------------------------------------------------------------
+	| AuthenticationInterface provider
+	|--------------------------------------------------------------------------
+	|
+	| Here you may specify the class which implements AuthenticateInterface
+	| for the purpose of logging in a user once the token they have provided
+	| has been validated. By default, we've got the Laravel Auth provider. You
+	| can also use 'Watson\Autologin\Providers\SentryAuthenticationProvider' if
+	| you're using Sentry, otherwise use your own implementation.
+	|
+	*/
+
+	'authentication_provider' => 'Watson\Autologin\Providers\AuthAuthenticationProvider',
+
+
 
 	/*
 	|--------------------------------------------------------------------------

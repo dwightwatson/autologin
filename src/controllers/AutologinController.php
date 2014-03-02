@@ -2,15 +2,16 @@
 
 use Auth, Redirect;
 use Illuminate\Routing\Controller;
+use Watson\Autologin\Interfaces\AuthenticationInterface;
 use Watson\Autologin\Interfaces\AutologinInterface;
 
 
 class AutologinController extends Controller {
 
 	/**
-	 * AutologinInterface provider instance.
+	 * AuthenticationInterface provider instance.
 	 *
-	 * @var \Studious\Autologin\Interfaces\AutologinInterface
+	 * @var \Studious\Autologin\Interfaces\AuthenticationInterface
 	 */
 	protected $provider;
 
@@ -24,9 +25,9 @@ class AutologinController extends Controller {
 	/**
 	 * Instantiate the controller.
 	 */
-	public function __construct(AutologinInterface $provider, Autologin $autologin)
+	public function __construct(AuthenticationInterface $authProvider, Autologin $autologin)
 	{
-		$this->provider = $provider;
+		$this->authProvider = $authProvider;
 		$this->autologin = $autologin;
 	}
 	
@@ -39,7 +40,7 @@ class AutologinController extends Controller {
 		{
 			// Active token found, login the user and redirect to the
 			// intended path.
-			Auth::loginUsingId($autologin->getUserId());
+			$this->authProvider->loginUsingId($autologin->getUserId());
 
 			return Redirect::to($autologin->getPath());
 		}

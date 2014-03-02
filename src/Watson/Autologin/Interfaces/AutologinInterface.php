@@ -1,7 +1,7 @@
 <?php namespace Watson\Autologin\Interfaces;
 
-interface AutologinInterface {
-
+interface AutologinInterface 
+{
 	public static function create(array $params);
 
 	public static function findByToken($token);
