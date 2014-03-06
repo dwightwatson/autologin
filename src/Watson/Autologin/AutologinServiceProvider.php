@@ -20,9 +20,9 @@ class AutologinServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->bindAutologinInterface();
+		$this->bindAuthenticationInterface();
 
 		$this->registerAutologinProvider();
-		$this->registerAuthenticationProvider();
 		$this->registerAutologin();
 	}
 
