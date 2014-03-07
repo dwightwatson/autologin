@@ -14,7 +14,7 @@ class AddUniqueIndexToAutologinTokensTable extends Migration {
 	{
 		Schema::table('autologin_tokens', function(Blueprint $table)
 		{
-			$table->dropIndex('autologin_tokens_token_index')
+			$table->dropIndex('autologin_tokens_token_index');
 
 			$table->unique('token');
 		});
