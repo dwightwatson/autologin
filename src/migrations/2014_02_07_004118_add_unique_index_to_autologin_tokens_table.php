@@ -29,7 +29,7 @@ class AddUniqueIndexToAutologinTokensTable extends Migration {
 	{
 		Schema::table('autologin_tokens', function(Blueprint $table)
 		{
-			$table->dropUnique('tutors_user_id_unique');
+			$table->dropUnique('autologin_tokens_token_unique');
 
 			$table->index('token');
 		});
