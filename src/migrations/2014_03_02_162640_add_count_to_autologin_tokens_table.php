@@ -14,7 +14,7 @@ class AddCountToAutologinTokensTable extends Migration {
 	{
 		Schema::table('autologin_tokens', function(Blueprint $table) 
 		{
-			$table->integer('count')->nullable()->after('path');
+			$table->integer('count')->default(0)->nullable()->after('path');
 		});
 	}
 
