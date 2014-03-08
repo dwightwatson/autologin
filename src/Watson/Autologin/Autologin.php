@@ -103,12 +103,17 @@ class Autologin
 	{
 		$autologin = $this->provider->findByToken($token);
 
-		if ($this->config->get('autologin::count'))
+		if ($autologin)
 		{
-			$autologin->incrementCount();
+			if ($this->config->get('autologin::count'))
+			{
+				$autologin->incrementCount();
+			}	
+
+			return $autologin;
 		}
 
-		return $autologin ? $autologin : null;
+		return null;
 	}
 
 	/**
