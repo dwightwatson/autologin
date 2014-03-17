@@ -41,7 +41,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      */
     public static function deleteByToken($token)
     {
-        $this->findByToken($token)->delete();
+        static::findByToken($token)->delete();
     }
 
     /**
