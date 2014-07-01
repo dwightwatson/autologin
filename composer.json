@@ -22,7 +22,7 @@
             "src/controllers"
         ],
         "psr-4": {
-            "Watson\\": "src/Watson"
+            "Watson\\Autologin\\": "src/"
         }
     },
     "minimum-stability": "dev"
