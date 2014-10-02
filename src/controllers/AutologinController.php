@@ -46,7 +46,7 @@ class AutologinController extends Controller {
 		}
 
 		// Token was invalid, redirect back to the home page.
-		return Redirect::to(base_path());
+		return Redirect::to('/');
 	}
 
 }
