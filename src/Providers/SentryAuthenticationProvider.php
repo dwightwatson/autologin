@@ -21,7 +21,7 @@ class SentryAuthenticationProvider implements AuthenticationInterface
 			$user = Sentry::findUserById(1);
 
 			// Log the user in
-			return Sentry::login($user, false);
+			return Sentry::login($user);
 		}
 		catch (UserNotFoundException $e)
 		{
