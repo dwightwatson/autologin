@@ -1,6 +1,7 @@
 <?php namespace Watson\Autologin;
 
 use Auth, Redirect;
+use Illuminate\Auth\UserInterface;
 use Illuminate\Routing\Controller;
 use Watson\Autologin\Interfaces\AuthenticationInterface;
 use Watson\Autologin\Interfaces\AutologinInterface;
@@ -40,9 +41,13 @@ class AutologinController extends Controller {
 		{
 			// Active token found, login the user and redirect to the
 			// intended path.
-			$this->authProvider->loginUsingId($autologin->getUserId());
+			$user = $this->authProvider->loginUsingId($autologin->getUserId());
 
-			return Redirect::to($autologin->getPath());
+			// The user has been found
+			if ($user instanceof UserInterface)
+			{
+				return Redirect::to($autologin->getPath());
+			}
 		}
 
 		// Token was invalid, redirect back to the home page.
