@@ -1,6 +1,7 @@
 <?php namespace Watson\Autologin\Providers;
 
 use Sentry;
+use Cartalyst\Sentry\Users\UserNotFoundException;
 use Watson\Autologin\Interfaces\AuthenticationInterface;
 
 class SentryAuthenticationProvider implements AuthenticationInterface
@@ -15,9 +16,16 @@ class SentryAuthenticationProvider implements AuthenticationInterface
 	public function loginUsingId($userId)
 	{
 		// Find the user using the user id
-		$user = Sentry::findUserById(1);
+		try
+		{
+			$user = Sentry::findUserById(1);
 
-		// Log the user in
-		return Sentry::login($user, false);
+			// Log the user in
+			return Sentry::login($user, false);
+		}
+		catch (UserNotFoundException $e)
+		{
+			return null;
+		}
 	}	
 }

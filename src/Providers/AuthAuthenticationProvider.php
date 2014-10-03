@@ -14,6 +14,11 @@ class AuthAuthenticationProvider implements AuthenticationInterface
 	 */
 	public function loginUsingId($userId)
 	{
-		return Auth::loginUsingId($userId);
+		if (Auth::getProvider()->retrieveById($userId))
+		{
+			return Auth::loginUsingId($userId);			
+		}
+
+		return null;
 	}	
 }
