@@ -69,9 +69,9 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('watson/autologin');
+		$this->package('watson/autologin', null, __DIR__);
 
-		include __DIR__.'/../../routes.php';
+		include __DIR__.'/routes.php';
 	}
 
 	/**
