@@ -40,12 +40,10 @@ class AutologinController extends Controller {
 		{
 			// Active token found, login the user and redirect to the
 			// intended path.
-			$user = $this->authProvider->loginUsingId($autologin->getUserId());
-		}
-
-		if ($user) 
-		{
-			return Redirect::to($autologin->getPath());
+			if ($user = $this->authProvider->loginUsingId($autologin->getUserId()))
+			{
+				return Redirect::to($autologin->getPath());
+			}
 		}
 
 		// Token was invalid, redirect back to the home page.
