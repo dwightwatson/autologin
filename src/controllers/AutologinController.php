@@ -11,14 +11,14 @@ class AutologinController extends Controller {
 	/**
 	 * AuthenticationInterface provider instance.
 	 *
-	 * @var \Studious\Autologin\Interfaces\AuthenticationInterface
+	 * @var \Watson\Autologin\Interfaces\AuthenticationInterface
 	 */
 	protected $provider;
 
 	/**
 	 * Studious Autologin instance.
 	 *
-	 * @var \Studious\Autologin\Autologin
+	 * @var \Watson\Autologin\Autologin
 	 */
 	protected $autologin;
 
