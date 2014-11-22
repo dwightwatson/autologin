@@ -5,7 +5,6 @@ use Illuminate\Routing\Controller;
 use Watson\Autologin\Interfaces\AuthenticationInterface;
 use Watson\Autologin\Interfaces\AutologinInterface;
 
-
 class AutologinController extends Controller {
 
 	/**
