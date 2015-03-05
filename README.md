@@ -1,15 +1,19 @@
-Autologin for Laravel 4
-=======================
+Autologin for Laravel
+=====================
 
-Autologin is a package built specifically for Laravel 4 that will allow you to generate URLs that will provide automatic login to your application and then redirect to the appropriate location. By default, it supports the Laravel Auth facility, but I hope to expand that to others (Sentry, Entrust) as well as custom support in the future.
+Autologin is a package built specifically for Laravel 4/5 that will allow you to generate URLs that will provide automatic login to your application and then redirect to the appropriate location. By default, it supports the Laravel Auth facility, but I hope to expand that to others (Sentry, Entrust) as well as custom support in the future.
+
+
 
 ## Installation
 
 Simply pop this in your `composer.json` file and run `composer update` (however your Composer is installed).
 
 ```
-"watson/autologin": "dev-master"
+"watson/autologin": "0.3.*"
 ```
+
+**For Laravel 4, please install `0.2.*` instead.**
 
 Now, add the Autologin service provider to your `app/config/app.php` file.
 
@@ -17,7 +21,7 @@ Now, add the Autologin service provider to your `app/config/app.php` file.
 
 If you want to adjust the default settings from the sensible defaults, publish the configuration file.
 
-`php artisan config:publish watson/autologin`
+`php artisan vendor:publish watson/autologin`
 
 And of course, if you'd like to use a Facade instead of injecting the class itself, add this to the aliases array.
 

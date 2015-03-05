@@ -18,13 +18,6 @@ class Autologin
 	protected $generator;
 
 	/**
-	 * Illuminate config repository instance.
-	 *
-	 * @var \Illuminate\Config\Repository
-	 */
-	protected $config;
-
-	/**
 	 * AutologinInterface provider instance.
 	 *
 	 * @var \Watson\Autologin\AutologinInterface
@@ -37,9 +30,8 @@ class Autologin
 	 * @param  \Illuminate\Routing\UrlGenerator
 	 * @return void
 	 */
-	public function __construct(Repository $repository, UrlGenerator $generator, AutologinInterface $provider)
+	public function __construct(UrlGenerator $generator, AutologinInterface $provider)
 	{
-		$this->config = $repository;
 		$this->generator = $generator;
 		$this->provider = $provider;
 	}
@@ -105,7 +97,7 @@ class Autologin
 
 		if ($autologin)
 		{
-			if ($this->config->get('autologin::count'))
+			if (config('autologin.count'))
 			{
 				$autologin->incrementCount();
 			}	
@@ -127,7 +119,7 @@ class Autologin
 	protected function getAutologinLink(UserInterface $user, $path = null)
 	{
 		// If we are supposed to remove expired tokens, let's do it now.
-		if ($this->config->get('autologin::remove_expired'))
+		if (config('autologin.remove_expired'))
 		{
 			$this->deleteExpiredTokens();
 		}
@@ -147,7 +139,7 @@ class Autologin
 
 		// Return a link using the route from the configuration file and
 		// the generated token.
-		$routeName = $this->config->get('autologin::route_name');
+		$routeName = config('autologin.route_name');
 		
 		return $this->generator->route($routeName, $token);
 	}
@@ -160,7 +152,7 @@ class Autologin
 	 */
 	protected function getAutologinToken()
 	{
-		$length = $this->config->get('autologin::length');
+		$length = config('autologin.length');
 
 		do
 		{
@@ -178,7 +170,7 @@ class Autologin
 	 */
 	protected function deleteExpiredTokens()
 	{
-		$lifetime = $this->config->get('autologin::lifetime');
+		$lifetime = config('autologin.lifetime');
 
 		$expiry = Carbon::now()->subMinutes($lifetime);
 

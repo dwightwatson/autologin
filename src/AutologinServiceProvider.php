@@ -19,6 +19,8 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->mergeConfigFrom(__DIR__.'/config/config.php', 'autologin');
+
 		$this->bindAutologinInterface();
 		$this->bindAuthenticationInterface();
 
@@ -58,7 +60,7 @@ class AutologinServiceProvider extends ServiceProvider {
 	{
 		$this->app['autologin'] = $this->app->share(function($app)
 		{
-			return new Autologin($app['config'], $app['url'], $app['autologin.provider']);
+			return new Autologin($app['url'], $app['autologin.provider']);
 		});
 	}
 
@@ -69,7 +71,9 @@ class AutologinServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('watson/autologin', null, __DIR__);
+		$this->publishes([
+			__DIR__.'/config/config.php' => config_path('autologin.php')
+		]);
 
 		include __DIR__.'/routes.php';
 	}
