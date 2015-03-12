@@ -81,8 +81,6 @@ return array(
 
 	'authentication_provider' => 'Watson\Autologin\Providers\AuthAuthenticationProvider',
 
-
-
 	/*
 	|--------------------------------------------------------------------------
 	| Autologin path
