@@ -21,7 +21,11 @@ Now, add the Autologin service provider to your `app/config/app.php` file.
 
 If you want to adjust the default settings from the sensible defaults, publish the configuration file.
 
-`php artisan vendor:publish watson/autologin`
+`php artisan vendor:publish --provider="Watson\Autologin\AutologinServiceProvider" --tag="config"`
+
+To get the migrations, publish them.
+
+`php artisan vendor:publish --provider="Watson\Autologin\AutologinServiceProvider" --tag="migrations"`
 
 And of course, if you'd like to use a Facade instead of injecting the class itself, add this to the aliases array.
 
