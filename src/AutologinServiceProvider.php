@@ -32,7 +32,7 @@ class AutologinServiceProvider extends ServiceProvider {
 	{
 		$this->app->bind('Watson\Autologin\Interfaces\AutologinInterface', function($app)
 		{
-			$provider = $app['config']['autologin::autologin_provider'];
+			$provider = $app['config']['autologin.autologin_provider'];
 
 			return new $provider;
 		});
@@ -42,7 +42,7 @@ class AutologinServiceProvider extends ServiceProvider {
 	{
 		$this->app->bind('Watson\Autologin\Interfaces\AuthenticationInterface', function($app)
 		{
-			$provider = $app['config']['autologin::authentication_provider'];
+			$provider = $app['config']['autologin.authentication_provider'];
 
 			return new $provider;
 		});
