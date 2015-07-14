@@ -28,7 +28,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      */
     public static function findByToken($token)
     {
-		return parent::where(array(
+        return parent::where(array(
             'token' => $token
         ))->first();
     }
