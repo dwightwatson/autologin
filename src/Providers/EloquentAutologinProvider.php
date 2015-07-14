@@ -15,7 +15,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      * @param  array  $attributes
      * @return \Watson\Autologin\Interfaces\AutologinInterface
      */
-    public static function create(array $attributes)
+    public static function create(array $attributes = [])
     {
         return parent::create($attributes);
     }
@@ -28,9 +28,9 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      */
     public static function findByToken($token)
     {
-        return parent::firstByAttributes(array(
+		return parent::where(array(
             'token' => $token
-        ));
+        ))->first();
     }
 
     /**
