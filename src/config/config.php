@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'autologin_provider' => 'Watson\Autologin\Providers\EloquentAutologinProvider',
+    'autologin_provider' => Watson\Autologin\Providers\EloquentAutologinProvider::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ return [
     |
     */
 
-    'authentication_provider' => 'Watson\Autologin\Providers\AuthAuthenticationProvider',
+    'authentication_provider' => Watson\Autologin\Providers\AuthAuthenticationProvider::class,
 
     /*
     |--------------------------------------------------------------------------

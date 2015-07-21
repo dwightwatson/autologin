@@ -31,7 +31,7 @@ class AutologinServiceProvider extends ServiceProvider
     protected function bindAutologinInterface()
     {
         $this->app->bind('Watson\Autologin\Interfaces\AutologinInterface', function ($app) {
-            $provider = $app['config']['autologin::autologin_provider'];
+            $provider = $app['config']['autologin.autologin_provider'];
 
             return new $provider;
         });
@@ -40,7 +40,7 @@ class AutologinServiceProvider extends ServiceProvider
     protected function bindAuthenticationInterface()
     {
         $this->app->bind('Watson\Autologin\Interfaces\AuthenticationInterface', function ($app) {
-            $provider = $app['config']['autologin::authentication_provider'];
+            $provider = $app['config']['autologin.authentication_provider'];
 
             return new $provider;
         });
@@ -69,7 +69,11 @@ class AutologinServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/config/config.php' => config_path('autologin.php')
-        ]);
+        ], 'config');
+
+        $this->publishes([
+            __DIR__.'/migrations/' => base_path('/database/migrations')
+        ], 'migrations');
 
         include __DIR__.'/routes.php';
     }
