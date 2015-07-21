@@ -3,93 +3,88 @@
 use Illuminate\Support\ServiceProvider;
 use Watson\Autologin\Autologin;
 
-class AutologinServiceProvider extends ServiceProvider {
+class AutologinServiceProvider extends ServiceProvider
+{
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/config/config.php', 'autologin');
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->mergeConfigFrom(__DIR__.'/config/config.php', 'autologin');
+        $this->bindAutologinInterface();
+        $this->bindAuthenticationInterface();
 
-		$this->bindAutologinInterface();
-		$this->bindAuthenticationInterface();
+        $this->registerAutologinProvider();
+        $this->registerAutologin();
+    }
 
-		$this->registerAutologinProvider();
-		$this->registerAutologin();
-	}
+    protected function bindAutologinInterface()
+    {
+        $this->app->bind('Watson\Autologin\Interfaces\AutologinInterface', function ($app) {
+            $provider = $app['config']['autologin.autologin_provider'];
 
-	protected function bindAutologinInterface()
-	{
-		$this->app->bind('Watson\Autologin\Interfaces\AutologinInterface', function($app)
-		{
-			$provider = $app['config']['autologin.autologin_provider'];
+            return new $provider;
+        });
+    }
 
-			return new $provider;
-		});
-	}
+    protected function bindAuthenticationInterface()
+    {
+        $this->app->bind('Watson\Autologin\Interfaces\AuthenticationInterface', function ($app) {
+            $provider = $app['config']['autologin.authentication_provider'];
 
-	protected function bindAuthenticationInterface()
-	{
-		$this->app->bind('Watson\Autologin\Interfaces\AuthenticationInterface', function($app)
-		{
-			$provider = $app['config']['autologin.authentication_provider'];
+            return new $provider;
+        });
+    }
 
-			return new $provider;
-		});
-	}
+    protected function registerAutologinProvider()
+    {
+        $this->app['autologin.provider'] = $this->app->share(function ($app) {
+            return $this->app->make('Watson\Autologin\Interfaces\AutologinInterface');
+        });
+    }
 
-	protected function registerAutologinProvider()
-	{
-		$this->app['autologin.provider'] = $this->app->share(function($app)
-		{
-			return $this->app->make('Watson\Autologin\Interfaces\AutologinInterface');
-		});
-	}
+    protected function registerAutologin()
+    {
+        $this->app['autologin'] = $this->app->share(function ($app) {
+            return new Autologin($app['url'], $app['autologin.provider']);
+        });
+    }
 
-	protected function registerAutologin()
-	{
-		$this->app['autologin'] = $this->app->share(function($app)
-		{
-			return new Autologin($app['url'], $app['autologin.provider']);
-		});
-	}
+    /**
+     * Boot the service provider.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('autologin.php')
+        ], 'config');
 
-	/**
-	 * Boot the service provider.
-	 * 
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->publishes([
-			__DIR__.'/config/config.php' => config_path('autologin.php')
-		], 'config');
+        $this->publishes([
+            __DIR__.'/migrations/' => base_path('/database/migrations')
+        ], 'migrations');
 
-		$this->publishes([
-			__DIR__.'/migrations/' => base_path('/database/migrations')
-		], 'migrations');
+        include __DIR__.'/routes.php';
+    }
 
-		include __DIR__.'/routes.php';
-	}
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array('autologin', 'autologin.provider');
-	}
-
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return array('autologin', 'autologin.provider');
+    }
 }

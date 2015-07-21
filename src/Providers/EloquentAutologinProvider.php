@@ -3,8 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 use Watson\Autologin\Interfaces\AutologinInterface;
 
-class EloquentAutologinProvider extends Model implements AutologinInterface {
-	
+class EloquentAutologinProvider extends Model implements AutologinInterface
+{
     protected $table = 'autologin_tokens';
 
     protected $fillable = array('user_id', 'token', 'path');
@@ -15,7 +15,7 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      * @param  array  $attributes
      * @return \Watson\Autologin\Interfaces\AutologinInterface
      */
-    public static function create(array $attributes)
+    public static function create(array $attributes = [])
     {
         return parent::create($attributes);
     }
@@ -28,14 +28,12 @@ class EloquentAutologinProvider extends Model implements AutologinInterface {
      */
     public static function findByToken($token)
     {
-        return parent::firstByAttributes(array(
-            'token' => $token
-        ));
+        return parent::where('token', $token)->first();
     }
 
     /**
      * Delete a autologin token by the given token.
-     * 
+     *
      * @param  string  $token
      * @return void
      */
