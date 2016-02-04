@@ -1,7 +1,11 @@
-<?php namespace Watson\Autologin;
+<?php 
+
+namespace Watson\Autologin;
 
 use Illuminate\Support\ServiceProvider;
 use Watson\Autologin\Autologin;
+use Watson\Autologin\Interfaces\AutologinInterface;
+use Watson\Autologin\Interfaces\AuthenticationInterface;
 
 class AutologinServiceProvider extends ServiceProvider
 {
@@ -28,31 +32,51 @@ class AutologinServiceProvider extends ServiceProvider
         $this->registerAutologin();
     }
 
+    /**
+     * Bind the autologin provider to the interface.
+     *
+     * @return void
+     */
     protected function bindAutologinInterface()
     {
-        $this->app->bind('Watson\Autologin\Interfaces\AutologinInterface', function ($app) {
+        $this->app->bind(AutologinInterface::class, function ($app) {
             $provider = $app['config']['autologin.autologin_provider'];
 
             return new $provider;
         });
     }
 
+    /**
+     * Bind the authentication provider to the interface.
+     *
+     * @return void
+     */
     protected function bindAuthenticationInterface()
     {
-        $this->app->bind('Watson\Autologin\Interfaces\AuthenticationInterface', function ($app) {
+        $this->app->bind(AuthenticationInterface::class, function ($app) {
             $provider = $app['config']['autologin.authentication_provider'];
 
             return new $provider;
         });
     }
 
+    /**
+     * Register the autologin provider in the IoC container.
+     *
+     * @return void
+     */
     protected function registerAutologinProvider()
     {
         $this->app['autologin.provider'] = $this->app->share(function ($app) {
-            return $this->app->make('Watson\Autologin\Interfaces\AutologinInterface');
+            return $this->app->make(AutologinInterface::class);
         });
     }
 
+    /**
+     * Register the autologin manager with the IoC container.
+     *
+     * @return void
+     */
     protected function registerAutologin()
     {
         $this->app['autologin'] = $this->app->share(function ($app) {
@@ -85,6 +109,11 @@ class AutologinServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['autologin', 'autologin.provider'];
+        return [
+            'autologin', 
+            'autologin.provider',
+            AutologinInterface::class,
+            AuthenticationInterface::class
+        ];
     }
 }

@@ -1,4 +1,6 @@
-<?php namespace Watson\Autologin\Providers;
+<?php 
+
+namespace Watson\Autologin\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Watson\Autologin\Interfaces\AutologinInterface;

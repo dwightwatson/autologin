@@ -1,4 +1,6 @@
-<?php namespace Watson\Autologin\Providers;
+<?php 
+
+namespace Watson\Autologin\Providers;
 
 use Auth;
 use Watson\Autologin\Interfaces\AuthenticationInterface;

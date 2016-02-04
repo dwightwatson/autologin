@@ -1,4 +1,6 @@
-<?php namespace Watson\Autologin;
+<?php 
+
+namespace Watson\Autologin;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -26,7 +28,8 @@ class Autologin
     /**
      * Create a new Autologin instance.
      *
-     * @param  \Illuminate\Routing\UrlGenerator
+     * @param  \Illuminate\Routing\UrlGenerator                 $generator
+     * @param  \Watson\Autologin\Interfaces\AutologinInterface  $provider
      * @return void
      */
     public function __construct(UrlGenerator $generator, AutologinInterface $provider)
