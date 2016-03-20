@@ -83,19 +83,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Autologin path
+    | Route name
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the route with which a autologin link will be
-    | generated, with {token} being replaced by the autologin token, as well
-    | as the name for that route.
+    | Here you may specify the name of the route you'd like to use so that
+    | the correct path can be generated for tokens.
     |
     */
 
-    'route_path' => 'autologin/{token}',
-
     'route_name' => 'autologin',
-
-    'route_controller' => 'Watson\Autologin\AutologinController@autologin'
 
 ];
