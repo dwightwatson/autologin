@@ -9,15 +9,11 @@ Autologin is a package built specifically for Laravel 4/5 that will allow you to
 
 Simply pop this in your `composer.json` file and run `composer update` (however your Composer is installed).
 
-```
-"watson/autologin": "0.3.*"
-```
-
-**For Laravel 4, please install `0.2.*` instead.**
+    composer require watson/autologin
 
 Now, add the Autologin service provider to your `app/config/app.php` file.
 
-`'Watson\Autologin\AutologinServiceProvider'`
+`Watson\Autologin\AutologinServiceProvider::class`
 
 If you want to adjust the default settings from the sensible defaults, publish the configuration file.
 
@@ -29,7 +25,13 @@ To get the migrations, publish them.
 
 And of course, if you'd like to use a Facade instead of injecting the class itself, add this to the aliases array.
 
-`'Autologin' => 'Watson\Autologin\Facades\Autologin'`
+`'Autologin' => Watson\Autologin\Facades\Autologin::class`
+
+Then, add the route to your `routes.php` file, naming it `autologin`. If you'd like to name it something else, ensure you also change that in the configuration file. You can use the provided `AutologinController` or route to a controller of your own.
+
+    Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autologin\AutologinController@autologin']);
+
+Note that previous versions of the package would add this route automatically, this has been removed as it allows you to better control the route middleware groups in your application to start the session and so on.
 
 ## Generating a autologin link
 
