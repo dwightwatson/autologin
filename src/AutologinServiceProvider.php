@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Watson\Autologin;
 
@@ -67,8 +67,8 @@ class AutologinServiceProvider extends ServiceProvider
      */
     protected function registerAutologinProvider()
     {
-        $this->app['autologin.provider'] = $this->app->share(function ($app) {
-            return $this->app->make(AutologinInterface::class);
+        $this->app->singleton('autologin.provider', function ($app) {
+            return $app->make(AutologinInterface::class);
         });
     }
 
@@ -79,7 +79,7 @@ class AutologinServiceProvider extends ServiceProvider
      */
     protected function registerAutologin()
     {
-        $this->app['autologin'] = $this->app->share(function ($app) {
+        $this->app->singleton('autologin', function ($app) {
             return new Autologin($app['url'], $app['autologin.provider']);
         });
     }
@@ -108,7 +108,7 @@ class AutologinServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'autologin', 
+            'autologin',
             'autologin.provider',
             AutologinInterface::class,
             AuthenticationInterface::class
