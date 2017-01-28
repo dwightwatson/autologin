@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Watson\Autologin\Providers;
 
@@ -29,7 +29,11 @@ class EloquentAutologinProvider extends Model implements AutologinInterface
      */
     public static function create(array $attributes = [])
     {
-        return parent::create($attributes);
+        $model = new static($attributes);
+
+        $model->save();
+
+        return $model;
     }
 
     /**
