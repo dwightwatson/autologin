@@ -1,6 +1,6 @@
 {
     "name": "watson/autologin",
-    "description": "Autologin package for Laravel 4",
+    "description": "Autologin package for Laravel",
     "keywords": ["laravel", "autologin"],
     "license": "MIT",
     "authors": [
