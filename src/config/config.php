@@ -54,6 +54,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Guard 
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the guard instance you would like to use. If your 
+    | needs are more complex, simply copy the AuthAuthenticationProvider into 
+    | your own application, swap out what you want to change and then set the 
+    | AuthAuthenticationProvider to your own implementaion in this file.
+    |
+    */
+
+    'guard' => 'web',
+
+    /*
+    |--------------------------------------------------------------------------
     | AutologinInterface provider
     |--------------------------------------------------------------------------
     |
