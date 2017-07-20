@@ -12,7 +12,7 @@ return [
     | of brute-forcing an existing token.
     |
     */
-    
+
     'length' => 10,
 
     /*
@@ -54,12 +54,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Guard 
+    | Token destroy lottery
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the guard instance you would like to use. If your 
-    | needs are more complex, simply copy the AuthAuthenticationProvider into 
-    | your own application, swap out what you want to change and then set the 
+    | You can clear the token on every use or adjust the chances the query will
+    | be run. By default the odds are 1 out of 10.
+    |
+    */
+
+    'lottery' => [1, 10],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Guard
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the guard instance you would like to use. If your
+    | needs are more complex, simply copy the AuthAuthenticationProvider into
+    | your own application, swap out what you want to change and then set the
     | AuthAuthenticationProvider to your own implementaion in this file.
     |
     */

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Watson\Autologin;
 
@@ -109,6 +109,20 @@ class Autologin
     }
 
     /**
+     * Remove tokens that have expired from storage.
+     *
+     * @return bool
+     */
+    public function deleteExpiredTokens()
+    {
+        $lifetime = config('autologin.lifetime');
+
+        $expiry = Carbon::now()->subMinutes($lifetime);
+
+        return $this->provider->deleteExpiredTokens($expiry);
+    }
+
+    /**
      * Get the link that can be used to automatically login a user to the
      * application.
      *
@@ -118,11 +132,10 @@ class Autologin
      */
     protected function getAutologinLink(Authenticatable $user, $path = null)
     {
-        // If we are supposed to remove expired tokens, let's do it now.
-        if (config('autologin.remove_expired')) {
+        if ($this->shouldDeleteExpiredTokens()) {
             $this->deleteExpiredTokens();
         }
-        
+
         // Get the user ID to be associated with a token.
         $userId = $user->getAuthIdentifier();
 
@@ -139,7 +152,7 @@ class Autologin
         // Return a link using the route from the configuration file and
         // the generated token.
         $routeName = config('autologin.route_name');
-        
+
         return $this->generator->route($routeName, $token);
     }
 
@@ -161,16 +174,14 @@ class Autologin
     }
 
     /**
-     * Remove tokens that have expired from storage.
+     * Determine whether the expired tokens should be removed, based upon
+     * whether the feature is enabled and if the lottery hits.
      *
      * @return bool
      */
-    protected function deleteExpiredTokens()
+    protected function shouldDeleteExpiredTokens()
     {
-        $lifetime = config('autologin.lifetime');
-
-        $expiry = Carbon::now()->subMinutes($lifetime);
-
-        return $this->provider->deleteExpiredTokens($expiry);
+        return config('autologin.remove_expired')
+            && random_int(1, config('autologin.lottery.1')) <= config('autologin.lottery.0');
     }
 }
