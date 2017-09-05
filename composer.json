@@ -26,5 +26,15 @@
             "Watson\\Autologin\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Watson\\Autologin\\AutologinServiceProvider"
+            ],
+            "aliases": {
+                "Autologin": "Watson\\Autologin\\Facades\\Autologin"
+            }
+        }
+    },
     "minimum-stability": "stable"
 }
