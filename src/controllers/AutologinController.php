@@ -1,4 +1,6 @@
-<?php namespace Watson\Autologin;
+<?php 
+
+namespace Watson\Autologin;
 
 use Illuminate\Routing\Controller;
 use Watson\Autologin\Interfaces\AuthenticationInterface;
@@ -22,6 +24,10 @@ class AutologinController extends Controller
 
     /**
      * Instantiate the controller.
+     *
+     * @param  \Watson\Autologin\Interfaces\AuthenticationInterface  $authProvider
+     * @param  \Watson\Autologin\Autologin                           $autologin
+     * @return void
      */
     public function __construct(AuthenticationInterface $authProvider, Autologin $autologin)
     {
@@ -31,6 +37,9 @@ class AutologinController extends Controller
     
     /**
      * Process the autologin token and perform the redirect.
+     *
+     * @param  string  $token
+     * @return \Illuminate\Http\RedirecetResponse
      */
     public function autologin($token)
     {

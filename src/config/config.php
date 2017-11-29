@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -12,7 +12,7 @@ return array(
     | of brute-forcing an existing token.
     |
     */
-    
+
     'length' => 10,
 
     /*
@@ -54,6 +54,32 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
+    | Token destroy lottery
+    |--------------------------------------------------------------------------
+    |
+    | You can clear the token on every use or adjust the chances the query will
+    | be run. By default the odds are 1 out of 10.
+    |
+    */
+
+    'lottery' => [1, 10],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Guard
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the guard instance you would like to use. If your
+    | needs are more complex, simply copy the AuthAuthenticationProvider into
+    | your own application, swap out what you want to change and then set the
+    | AuthAuthenticationProvider to your own implementaion in this file.
+    |
+    */
+
+    'guard' => 'web',
+
+    /*
+    |--------------------------------------------------------------------------
     | AutologinInterface provider
     |--------------------------------------------------------------------------
     |
@@ -64,7 +90,7 @@ return array(
     |
     */
 
-    'autologin_provider' => 'Watson\Autologin\Providers\EloquentAutologinProvider',
+    'autologin_provider' => Watson\Autologin\Providers\EloquentAutologinProvider::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -79,23 +105,18 @@ return array(
     |
     */
 
-    'authentication_provider' => 'Watson\Autologin\Providers\AuthAuthenticationProvider',
+    'authentication_provider' => Watson\Autologin\Providers\AuthAuthenticationProvider::class,
 
     /*
     |--------------------------------------------------------------------------
-    | Autologin path
+    | Route name
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the route with which a autologin link will be
-    | generated, with {token} being replaced by the autologin token, as well
-    | as the name for that route.
+    | Here you may specify the name of the route you'd like to use so that
+    | the correct path can be generated for tokens.
     |
     */
 
-    'route_path' => 'autologin/{token}',
-
     'route_name' => 'autologin',
 
-    'route_controller' => 'Watson\Autologin\AutologinController@autologin'
-
-);
+];

@@ -1,4 +1,6 @@
-<?php namespace Watson\Autologin\Providers;
+<?php
+
+namespace Watson\Autologin\Providers;
 
 use Auth;
 use Watson\Autologin\Interfaces\AuthenticationInterface;
@@ -14,8 +16,11 @@ class AuthAuthenticationProvider implements AuthenticationInterface
      */
     public function loginUsingId($userId)
     {
-        if ($user = Auth::getProvider()->retrieveById($userId)) {
-            Auth::login($user);
+        $guard = config('autologin.guard');
+
+        if ($user = Auth::guard($guard)->getProvider()->retrieveById($userId)) {
+
+            Auth::guard($guard)->login($user);
 
             return $user;
         }
