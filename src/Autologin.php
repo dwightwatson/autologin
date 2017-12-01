@@ -98,6 +98,17 @@ class Autologin
         $autologin = $this->provider->findByToken($token);
 
         if ($autologin) {
+
+            if (config('autologin.remove_expired')){
+
+                if($this->autologinTokenIsExpired($autologin->created_at))
+                {
+                    $autologin->delete();
+
+                    return null;
+                }
+            }
+
             if (config('autologin.count')) {
                 $autologin->incrementCount();
             }
@@ -183,5 +194,18 @@ class Autologin
     {
         return config('autologin.remove_expired')
             && random_int(1, config('autologin.lottery.1')) <= config('autologin.lottery.0');
+    }
+
+    /**
+     * Checks if the autologin token date is expired.
+     *
+     * @param  string  $date
+     * @return bool
+     */
+    protected function autologinTokenIsExpired($date)
+    {
+        $lifetime = config('autologin.lifetime');
+
+        return ( $date <= Carbon::now()->subMinutes($lifetime));
     }
 }
