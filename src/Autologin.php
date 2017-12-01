@@ -3,10 +3,10 @@
 namespace Watson\Autologin;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Str;
 use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Watson\Autologin\Interfaces\AutologinInterface;
 
 class Autologin
@@ -97,18 +97,7 @@ class Autologin
     {
         $autologin = $this->provider->findByToken($token);
 
-        if ($autologin) {
-
-            if (config('autologin.remove_expired')){
-
-                if($this->autologinTokenIsExpired($autologin->created_at))
-                {
-                    $autologin->delete();
-
-                    return null;
-                }
-            }
-
+        if ($autologin && $this->autologinValid($autologin)) {
             if (config('autologin.count')) {
                 $autologin->incrementCount();
             }
@@ -197,15 +186,23 @@ class Autologin
     }
 
     /**
-     * Checks if the autologin token date is expired.
+     * Determine whether the autologin token provided is valid and remove it
+     * if not.
      *
-     * @param  string  $date
+     * @param  \Watson\Autologin\Interfaces\AutologinInterface  $autologin
      * @return bool
      */
-    protected function autologinTokenIsExpired($date)
-    {
-        $lifetime = config('autologin.lifetime');
+    protected function autologinValid(AutologinInterface $autologin) {
+        if (config('autologin.remove_expired')) {
+            $lifetime = config('autologin.lifetime');
 
-        return ( $date <= Carbon::now()->subMinutes($lifetime));
+            if ($autologin->created_at <= Carbon::now()->subMinutes($lifetime)) {
+                $autologin->delete();
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }
